@@ -8,27 +8,27 @@
         <h3>Configuration</h3>
         <table>
             <tbody id="table-body">
-                    {% for i in configuration_indexes %}
-                    <tr>
-                        <th>{{ configuration_keys[i] }}</th>
-                        <td>{{ configuration_values[i] }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+                {% for i in configuration_indexes %}
+                <tr>
+                    <th>{{ configuration_keys[i] }}</th>
+                    <td>{{ configuration_values[i] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
         <h3>Instructions</h3>
         <table>
             <tbody id="table-body">
-                    {% for i in instruction_indexes %}
-                    <tr>
-                        <th>{{ instruction_keys[i] }}</th>
-                        <td>{{ instruction_values[i] }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+                {% for i in instruction_indexes %}
+                <tr>
+                    <th>{{ instruction_keys[i] }}</th>
+                    <td>{{ instruction_values[i] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
         <a href="/">Back</a>
+    </div>
 </body>
+
 </html>

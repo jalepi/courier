@@ -11,7 +11,8 @@
                 <tbody>
                     {% for i in configuration_indexes %}
                     <tr>
-                        <th><input type="text" name="configuration_keys" value="{{ configuration_keys[i] }}" readonly></th>
+                        <th><input type="text" name="configuration_keys" value="{{ configuration_keys[i] }}" readonly>
+                        </th>
                         <td><input type="text" name="configuration_values" value="{{ configuration_values[i] }}"></td>
                     </tr>
                     {% endfor %}
