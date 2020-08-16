@@ -3,25 +3,53 @@ from multiprocessing import Process, Pipe
 from multiprocessing.connection import Connection
 from json import loads, dumps
 from time import sleep
+from datetime import datetime
+from os.path import join
 
 settings_path = "./courier/settings.json"
 
 
-def loop(settings: dict):
-    while True:
-        configuration = {
-        } if 'configuration' not in settings else settings['configuration']
-        interval = 90 if 'interval' not in configuration else int(
-            configuration['interval'])
+def execute_instruction(key: str, value: str) -> (dict, dict):
+    return { 'key': key, 'value': value }, { 'value': 123 }
 
-        sleep(interval)
+def loop(settings: dict):
+    configuration: dict = {
+    } if 'configuration' not in settings.keys() else settings['configuration']
+
+    name: str = configuration['name']
+    folder: str = configuration['folder']
+
+    seconds: int = 60 if 'seconds' not in configuration.keys() else float(
+        configuration['seconds'])
+
+    instructions: dict = {
+    } if 'instructions' not in settings.keys() else settings['instructions']
+
+    while True:
+        now: datetime = datetime.now()
+        filename: str = 'storage-{0:04d}-{1:02d}{2:02d}.log'.format(now.year, now.month, now.day)
+        filepath: str = join(folder, filename)
+        with open(filepath, mode="a+") as f:
+            for key, value in instructions.items():
+                properties, metrics = execute_instruction(key, value)
+                record = { 
+                    'k': key, 
+                    'ts': now.isoformat(), 
+                    'p': properties, 
+                    'm': metrics, 
+                }
+                text_line = dumps(record)
+                f.write(text_line)
+                f.write('\n')
+
+        sleep(seconds)
 
 
 def start_loop(conn: Connection):
     processes = []
 
     while True:
-        settings: dict = conn.recv
+        settings: dict = conn.recv()
 
         for process in processes:
             process.terminate()
@@ -85,7 +113,7 @@ def start_web(conn: Connection):
             instruction_values=[v for v in instructions.values()],
         )
 
-    app.run(debug=True, use_reloader=True)
+    app.run(debug=False, use_reloader=False)
 
 
 def main():
@@ -97,6 +125,7 @@ def main():
         contents = f.read()
         settings = loads(contents)
 
+    print(settings)
     web_to_here, here_to_web = Pipe(duplex=True)
     web_process = Process(target=start_web, args=(web_to_here,))
     web_process.start()
