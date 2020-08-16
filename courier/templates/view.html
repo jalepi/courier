@@ -4,14 +4,26 @@
 <head> </head>
 
 <body>
-    <h1>Configuration</h1>
-        <div>
-            <table>
-                <tbody id="table-body">
-                    {% for i in indexes %}
+    <div>
+        <h3>Configuration</h3>
+        <table>
+            <tbody id="table-body">
+                    {% for i in configuration_indexes %}
                     <tr>
-                        <th>{{ keys[i] }}</th>
-                        <td>{{ values[i] }}</td>
+                        <th>{{ configuration_keys[i] }}</th>
+                        <td>{{ configuration_values[i] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <h3>Instructions</h3>
+        <table>
+            <tbody id="table-body">
+                    {% for i in instruction_indexes %}
+                    <tr>
+                        <th>{{ instruction_keys[i] }}</th>
+                        <td>{{ instruction_values[i] }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

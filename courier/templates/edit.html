@@ -4,33 +4,48 @@
 <head> </head>
 
 <body>
-    <h1>Configuration</h1>
-
     <form id="config_form" method="POST" action="/">
         <div>
+            <h3>Configuration</h3>
+            <table>
+                <tbody>
+                    {% for i in configuration_indexes %}
+                    <tr>
+                        <th><input type="text" name="configuration_keys" value="{{ configuration_keys[i] }}" readonly></th>
+                        <td><input type="text" name="configuration_values" value="{{ configuration_values[i] }}"></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <h3>Instructions</h3>
+            <div>
+                <input type="button" value="add instruction" onclick="add_instruction(this)" />
+            </div>
             <table>
                 <tbody id="table-body">
-                    {% for i in indexes %}
+                    {% for i in instruction_indexes %}
                     <tr>
-                        <th><input type="text" name="key" value="{{ keys[i] }}"></th>
-                        <td><input type="text" name="value" value="{{ values[i] }}"></td>
-                        <td><input type="button" value="remove" onclick="remove_entry(this)" /></td>
+                        <th><input type="text" name="instruction_keys" value="{{ instruction_keys[i] }}"></th>
+                        <td><input type="text" name="instruction_values" value="{{ instruction_values[i] }}"></td>
+                        <td><input type="button" value="remove" onclick="remove_instruction(this)" /></td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
-        <input type="button" value="add" onclick="add_entry(this)" />
-        <input type="submit" value="apply">
+        <div>
+            <input type="submit" value="apply changes">
+        </div>
     </form>
     <script type="text/javascript">
-        function add_entry(element) {
+        function add_instruction(element) {
             const tableRow = document.createElement("tr");
-            tableRow.innerHTML = "<th><input type='text' name='key'></th><td><input type='text' name='value'></td><td><input type='button' value='remove' onclick='remove_entry(this)' /></td>";
+            tableRow.innerHTML = "<th><input type='text' name='instruction_keys'></th><td><input type='text' name='instruction_values'></td><td><input type='button' value='remove' onclick='remove_instruction(this)' /></td>";
             document.getElementById("table-body").appendChild(tableRow);
         }
 
-        function remove_entry(element) {
+        function remove_instruction(element) {
             const tableData = element.parentElement;
             const tableRow = tableData.parentElement;
             document.getElementById("table-body").removeChild(tableRow);
