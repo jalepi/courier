@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head> </head>
+
+<body>
+    <h1>Configuration</h1>
+
+    <form id="config_form" method="POST" action="/">
+        <div>
+            <table>
+                <tbody id="table-body">
+                    {% for i in indexes %}
+                    <tr>
+                        <th><input type="text" name="key" value="{{ keys[i] }}"></th>
+                        <td><input type="text" name="value" value="{{ values[i] }}"></td>
+                        <td><input type="button" value="remove" onclick="remove_entry(this)" /></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <input type="button" value="add" onclick="add_entry(this)" />
+        <input type="submit" value="apply">
+    </form>
+    <script type="text/javascript">
+        function add_entry(element) {
+            const tableRow = document.createElement("tr");
+            tableRow.innerHTML = "<th><input type='text' name='key'></th><td><input type='text' name='value'></td><td><input type='button' value='remove' onclick='remove_entry(this)' /></td>";
+            document.getElementById("table-body").appendChild(tableRow);
+        }
+
+        function remove_entry(element) {
+            const tableData = element.parentElement;
+            const tableRow = tableData.parentElement;
+            document.getElementById("table-body").removeChild(tableRow);
+        }
+    </script>
+</body>
+
+</html>
