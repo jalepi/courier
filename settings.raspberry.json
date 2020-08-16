@@ -1,1 +1,1 @@
-{"configuration": {"folder": "./", "seconds": "1"}, "instructions": {"gpio-1": "foo", "gpio-2": "bar"}}
+{"configuration": {"folder": "./", "seconds": "1"}, "instructions": {"gpio-1": "foo", "gpio-2": "bar", "gpio-3": "quiz"}}
