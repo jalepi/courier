@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Courier Settings files
+settings.*.json
+
+# Courier Storage files
+storage.*.json
